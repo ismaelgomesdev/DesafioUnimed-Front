@@ -1,0 +1,29 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            <button mat-icon-button (click)="goBack()">
+                <mat-icon>arrow_back</mat-icon>
+                Voltar
+            </button>
+        </mat-card-title>
+    </mat-card-header>
+    <form>
+        <mat-form-field>
+            <mat-label>Razão Social</mat-label>
+            <input matInput [(ngModel)]="cliente.razaoSocial" name="razaoSocial">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>CNPJ</mat-label>
+            <input matInput [(ngModel)]="cliente.cnpj" name="cnpj">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>E-mail</mat-label>
+            <input matInput [(ngModel)]="cliente.email" name="email">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Regime Tributário</mat-label>
+            <input matInput [(ngModel)]="cliente.tipoTributacao" name="tipoTributacao">
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="saveClient()">Salvar</button>
+    </form>
+</mat-card>

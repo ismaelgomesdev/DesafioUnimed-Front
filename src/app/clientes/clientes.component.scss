@@ -1,0 +1,53 @@
+.container {
+  padding: 5%;
+  display: grid;
+  grid-template-columns: 0.5fr 2fr;
+  background-color: #009a59;
+}
+
+.mat-row {
+  height: auto;
+}
+
+.mat-table {
+  box-shadow: none;
+}
+
+.mat-cell {
+  padding: 1rem 1rem 1rem 0;
+}
+
+.mat-header-cell {
+  padding: 1rem 1rem 1rem 0;
+}
+
+.content-clients {
+  height: fit-content;
+  & > button {
+    margin-left: 0.5rem;
+  }
+}
+
+.content-dashboard{
+  margin-right: 1rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+}
+
+.delete-action {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.total-clientes {
+  font-size: 2rem;
+}

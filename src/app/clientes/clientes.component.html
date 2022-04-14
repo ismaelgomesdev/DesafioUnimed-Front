@@ -1,0 +1,70 @@
+<div class="container" [style]="showNewClient ? 'height: 100vh;' : ''">
+    <div class="content-dashboard">
+        <mat-card class="card">
+            <span>Clientes no total</span>
+            <span class="total-clientes">{{clientes.length}}</span>
+        </mat-card>
+        <mat-card class="card">
+            <span>Clientes por tipo de tributação Simples Nacional</span>
+            <span class="total-clientes">{{getFilteredClientsQuantity("Simples Nacional")}}</span>
+        </mat-card>
+        <mat-card class="card">
+            <span>Clientes por tipo de tributação Lucro Presumido</span>
+            <span class="total-clientes">{{getFilteredClientsQuantity("Lucro Presumido")}}</span>
+        </mat-card>
+    </div>
+    <mat-card class="content-clients" *ngIf="!showNewClient; else newClient">
+        Filtrar busca:
+        <button *ngIf="selectedFilter != 'Simples Nacional'" mat-stroked-button color="primary" (click)="setSelectedFilter('Simples Nacional')">Simples Nacional</button>
+        <button *ngIf="selectedFilter == 'Simples Nacional'" mat-raised-button color="primary" (click)="setSelectedFilter('')">Simples Nacional</button>
+        <button *ngIf="selectedFilter != 'Lucro Presumido'" mat-stroked-button color="primary" (click)="setSelectedFilter('Lucro Presumido')">Lucro Presumido</button>
+        <button *ngIf="selectedFilter == 'Lucro Presumido'" mat-raised-button color="primary" (click)="setSelectedFilter('')">Lucro Presumido</button>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> Id </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="razaoSocial">
+                <th mat-header-cell *matHeaderCellDef>Razão Social</th>
+                <td mat-cell *matCellDef="let element"> {{element.razaoSocial}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cnpj">
+                <th mat-header-cell *matHeaderCellDef> CNPJ </th>
+                <td mat-cell *matCellDef="let element"> {{element.cnpj}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tipoTributacao">
+                <th mat-header-cell *matHeaderCellDef> Tipo de Regime Tributário </th>
+                <td mat-cell *matCellDef="let element"> {{element.tipoTributacao}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> E-mail </th>
+                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
+            <ng-container matColumnDef="acoes">
+                <th mat-header-cell *matHeaderCellDef>
+                    <button mat-raised-button color="primary" (click)="openNewClient()">
+                        <mat-icon>add</mat-icon>
+                        Adicionar novo
+                    </button>
+                </th>
+                <td mat-cell *matCellDef="let element" class="delete-action">
+                    <button mat-mini-fab color="warn" (click)="openDeleteClient(element)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-card>
+    <ng-template #newClient>
+        <app-novo-cliente (backToClients)="showNewClient = !$event" (clientToSave)="saveClient($event)"></app-novo-cliente>
+    </ng-template>
+    <app-deletar-cliente *ngIf="showDeleteClient" [cliente]="toBeDeletedClient" (close)="showDeleteClient = !$event" (idToDelete)="deleteClientId($event)">
+    </app-deletar-cliente>
+</div>
